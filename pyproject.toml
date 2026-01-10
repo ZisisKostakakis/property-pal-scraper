@@ -1,0 +1,14 @@
+[project]
+name = "property-pal-scraper"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "geopy>=2.4.1",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "requests>=2.32.5",
+    "scrapy>=2.14.0",
+    "scrapy-user-agents>=0.1.1",
+]
