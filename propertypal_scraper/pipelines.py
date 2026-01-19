@@ -4,9 +4,8 @@ import os
 from datetime import datetime
 from itemadapter import ItemAdapter
 from propertypal_scraper.perplexity_rating import PerplexityPropertyRater
-from geopy.geocoders import Nominatim
-from geopy.distance import geodesic
-import time
+from propertypal_scraper.geocoding import GeocodingService
+from propertypal_scraper import settings
 
 
 class ValidationPipeline:
@@ -153,25 +152,22 @@ class PerplexityRatingPipeline:
 
 
 class DistanceCalculationPipeline:
-    """Calculate distance from property location to destination
+    """Calculate distance from property location to destination.
 
-    WARNING: This pipeline uses OpenStreetMap's Nominatim geocoding service.
-    Nominatim has strict usage policies and may block requests for:
-    - Bulk processing (more than ~1 request per second)
-    - Missing or inappropriate user agent strings
-    - Commercial use without permission
+    Uses GeocodingService with file-based caching, exponential backoff retry,
+    and multi-provider fallback (Nominatim -> Photon -> paid services).
 
-    For production or bulk processing, consider using commercial geocoding services:
-    - Google Maps Geocoding API
-    - Mapbox Geocoding API
-    - Here Maps Geocoding API
-    - OpenCage Geocoding API
-
-    To disable geocoding, remove the DESTINATION environment variable.
+    Configure via environment variables:
+    - DESTINATION: Target address for distance calculation
+    - GEOCODING_PROVIDERS: Comma-separated provider list (default: nominatim,photon)
+    - GEOCODING_MAX_RETRIES: Retry attempts per provider (default: 3)
+    - GEOCODING_BASE_DELAY: Base delay for exponential backoff (default: 1.0)
+    - GEOCODING_CACHE_FILE: Cache file path (default: data/cache/geocoding_cache.json)
+    - GEOCODING_CACHE_TTL_DAYS: Cache TTL in days (default: 30)
     """
 
     def __init__(self):
-        self.geolocator = None
+        self.geocoding_service = None
         self.destination_coords = None
         self.destination = os.getenv('DESTINATION')
         self.geocoding_disabled = False
@@ -182,53 +178,32 @@ class DistanceCalculationPipeline:
             return
 
         try:
-            # Use a descriptive user agent to comply with Nominatim policy
-            # This helps identify our application and shows we're not abusing the service
-            # Note: For production use, consider using a commercial geocoding service
-            self.geolocator = Nominatim(
-                user_agent="PropertyPal-Scraper-Geocoding/1.0 (https://github.com/yourusername/property-pal-scraper)",
-                timeout=10
+            self.geocoding_service = GeocodingService(
+                providers=settings.GEOCODING_PROVIDERS,
+                max_retries=settings.GEOCODING_MAX_RETRIES,
+                base_delay=settings.GEOCODING_BASE_DELAY,
+                cache_file=settings.GEOCODING_CACHE_FILE,
+                cache_ttl_days=settings.GEOCODING_CACHE_TTL_DAYS
             )
 
-            # Geocode the destination once - try multiple strategies
             spider.logger.info(f"Geocoding destination: {self.destination}")
+            self.destination_coords = self.geocoding_service.geocode(self.destination)
 
-            destination_location = self.geolocator.geocode(self.destination)
-
-            # If exact destination fails, try a simplified version
-            if not destination_location:
-                # Try removing specific details and keeping just city/country
-                simplified_destination = self.destination.split(',')[0].strip()
-                if simplified_destination != self.destination:
-                    spider.logger.info(f"Trying simplified destination: {simplified_destination}")
-                    destination_location = self.geolocator.geocode(simplified_destination)
-
-            if destination_location:
-                self.destination_coords = (destination_location.latitude, destination_location.longitude)
+            if self.destination_coords:
                 spider.logger.info(f"Destination coordinates: {self.destination_coords}")
             else:
                 spider.logger.warning(f"Could not geocode destination: {self.destination}. Distance calculation disabled.")
-                spider.logger.warning("Try using a simpler destination like 'Belfast, UK' instead of specific addresses.")
                 self.geocoding_disabled = True
 
+        except ValueError as e:
+            spider.logger.error(f"No geocoding providers available: {e}")
+            self.geocoding_disabled = True
         except Exception as e:
-            error_msg = str(e)
-            if "403" in error_msg or "blocked" in error_msg.lower():
-                spider.logger.error("Geocoding service blocked our requests. This may be due to:")
-                spider.logger.error("  - Too many requests too quickly")
-                spider.logger.error("  - User agent not properly identifying the application")
-                spider.logger.error("  - Violation of Nominatim usage policy")
-                spider.logger.error("Distance calculation will be disabled for this session.")
-                spider.logger.error("Consider using a commercial geocoding service or waiting a few hours.")
-                spider.logger.error("To disable geocoding completely, remove the DESTINATION environment variable.")
-                self.geocoding_disabled = True
-            else:
-                spider.logger.error(f"Error initializing distance calculation: {e}")
-                spider.logger.error("Distance calculation will be disabled for this session.")
-                self.geocoding_disabled = True
+            spider.logger.error(f"Error initializing geocoding service: {e}")
+            self.geocoding_disabled = True
 
     def process_item(self, item, spider):
-        if not self.destination_coords or not self.geolocator or self.geocoding_disabled:
+        if not self.destination_coords or not self.geocoding_service or self.geocoding_disabled:
             return item
 
         adapter = ItemAdapter(item)
@@ -239,48 +214,17 @@ class DistanceCalculationPipeline:
             return item
 
         try:
-            # Geocode the property location - try multiple strategies
-            property_location = self.geolocator.geocode(location)
+            distance = self.geocoding_service.calculate_distance(location, self.destination_coords)
 
-            # If exact address fails, try postcode only (last part after comma)
-            if not property_location and ',' in location:
-                # Extract what looks like a postcode (usually at the end)
-                location_parts = [part.strip() for part in location.split(',')]
-                for part in reversed(location_parts):
-                    if part and (len(part.replace(' ', '')) >= 5):  # Likely a postcode
-                        spider.logger.debug(f"Trying postcode/area: {part}")
-                        property_location = self.geolocator.geocode(part)
-                        if property_location:
-                            break
-
-            if property_location:
-                property_coords = (property_location.latitude, property_location.longitude)
-
-                # Calculate distance in kilometers
-                distance = geodesic(property_coords, self.destination_coords).kilometers
-
-                # Round to 2 decimal places
-                adapter['distance_to_destination'] = round(distance, 2)
-
-                spider.logger.debug(f"Calculated distance for {location}: {adapter['distance_to_destination']} km")
+            if distance is not None:
+                adapter['distance_to_destination'] = distance
+                spider.logger.debug(f"Calculated distance for {location}: {distance} km")
             else:
                 spider.logger.debug(f"Could not geocode property location: {location}")
                 adapter['distance_to_destination'] = None
 
-            # Add longer delay to respect Nominatim's rate limits (1 request per second max)
-            # Nominatim allows 1 request per second, so we use 2 seconds to be very safe
-            # For bulk processing, consider using a commercial geocoding service
-            time.sleep(2.0)
-
         except Exception as e:
-            error_msg = str(e)
-            if "403" in error_msg or "blocked" in error_msg.lower():
-                spider.logger.error(f"Geocoding blocked for property {location}. Disabling geocoding for remaining properties.")
-                spider.logger.error("Consider using a commercial geocoding service or reducing request frequency.")
-                spider.logger.error("To disable geocoding completely, remove the DESTINATION environment variable.")
-                self.geocoding_disabled = True
-            else:
-                spider.logger.error(f"Error calculating distance for {location}: {e}")
+            spider.logger.error(f"Error calculating distance for {location}: {e}")
             adapter['distance_to_destination'] = None
 
         return item

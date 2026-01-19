@@ -108,3 +108,11 @@ ITEM_PIPELINES = {
 
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
+
+# Geocoding configuration
+# Providers to try in order (nominatim, photon are free; google, here, mapbox, opencage require API keys)
+GEOCODING_PROVIDERS = os.getenv('GEOCODING_PROVIDERS', 'nominatim,photon').split(',')
+GEOCODING_MAX_RETRIES = int(os.getenv('GEOCODING_MAX_RETRIES', '3'))
+GEOCODING_BASE_DELAY = float(os.getenv('GEOCODING_BASE_DELAY', '1.0'))
+GEOCODING_CACHE_FILE = os.getenv('GEOCODING_CACHE_FILE', 'data/cache/geocoding_cache.json')
+GEOCODING_CACHE_TTL_DAYS = int(os.getenv('GEOCODING_CACHE_TTL_DAYS', '30'))
