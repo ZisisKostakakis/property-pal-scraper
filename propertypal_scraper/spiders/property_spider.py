@@ -6,14 +6,19 @@ import re
 class PropertySpider(scrapy.Spider):
     name = "property_spider"
     allowed_domains = ["propertypal.com"]
-    start_urls = [
-        "https://www.propertypal.com/search?expand=1.0&runit=m&sort=dateHigh&sta=forSale&st=sale&pt=residential&min=100000&max=140000&currency=GBP&minbeds=2&maxbeds=6&term=BT1"
-    ]
-
-    def __init__(self, use_perplexity='false', *args, **kwargs):
+    def __init__(self, url=None, use_perplexity='false', *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Set start_urls from parameter or use default
+        if url:
+            self.start_urls = [url]
+        else:
+            # Default to new URL format for backward compatibility
+            self.start_urls = [
+                "https://www.propertypal.com/property-for-sale/belfast/bedrooms-2-6/price-100000-140000/sort-dateHigh"
+            ]
         # Convert string to boolean
         self.use_perplexity = use_perplexity.lower() in ('true', '1', 'yes', 'on')
+        self.logger.info(f"Starting URL: {self.start_urls[0]}")
         self.logger.info(f"Perplexity rating enabled: {self.use_perplexity}")
 
     def parse(self, response):
@@ -33,37 +38,41 @@ class PropertySpider(scrapy.Spider):
         for link in property_links:
             yield response.follow(link, callback=self.parse_property)
 
-        # Handle pagination
-        # Extract all page links and find the next page
-        page_links = response.xpath('//a[contains(@href, "page=")]/@href').getall()
+        # Handle pagination - supports both /page-N and ?page=N formats
+        page_links = (
+            response.xpath('//a[contains(@href, "page=") or contains(@href, "/page-")]/@href').getall()
+        )
 
         if page_links:
-            # Get unique page numbers
-            import re
-            page_numbers = []
+            page_numbers = set()
             for link in page_links:
-                match = re.search(r'page=(\d+)', link)
+                # Match both page=N and /page-N formats
+                match = re.search(r'(?:page=|/page-)(\d+)', link)
                 if match:
-                    page_numbers.append(int(match.group(1)))
+                    page_numbers.add(int(match.group(1)))
 
-            # Find current page
-            current_page_match = re.search(r'page=(\d+)', response.url)
-            current_page = int(current_page_match.group(1)) if current_page_match else 0
+            # Find current page from URL
+            current_page_match = re.search(r'(?:page=|/page-)(\d+)', response.url)
+            current_page = int(current_page_match.group(1)) if current_page_match else 1
 
-            # Get next page
             next_page_num = current_page + 1
 
             if next_page_num in page_numbers:
-                # Build next page URL
-                if 'page=' in response.url:
+                # Build next page URL based on URL format
+                if '/page-' in response.url:
+                    next_url = re.sub(r'/page-\d+', f'/page-{next_page_num}', response.url)
+                elif 'page=' in response.url:
                     next_url = re.sub(r'page=\d+', f'page={next_page_num}', response.url)
-                else:
+                elif '?' in response.url:
                     next_url = f"{response.url}&page={next_page_num}"
+                else:
+                    # Default to /page-N for clean URLs
+                    next_url = f"{response.url}/page-{next_page_num}"
 
                 self.logger.info(f"Following pagination to page {next_page_num}: {next_url}")
                 yield response.follow(next_url, callback=self.parse)
             else:
-                self.logger.info(f"No more pages (current: {current_page}, available: {sorted(set(page_numbers))})")
+                self.logger.info(f"No more pages (current: {current_page}, available: {sorted(page_numbers)})")
         else:
             self.logger.info("No pagination found")
 

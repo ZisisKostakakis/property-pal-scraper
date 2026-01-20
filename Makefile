@@ -1,6 +1,6 @@
 # PropertyPal Scraper Makefile
 
-.PHONY: help install run run-fast clean clean-data clean-all venv-check
+.PHONY: help install run run-fast run-interactive run-all clean clean-data clean-all venv-check
 
 # Virtual environment paths
 VENV_BIN = venv/bin
@@ -18,8 +18,10 @@ help:
 	@echo "  make test-geocoding # Test geocoding functionality"
 	@echo ""
 	@echo "Usage:"
-	@echo "  make run           # Run scraper with AI ratings (default)"
-	@echo "  make run-fast      # Run scraper without AI ratings (faster)"
+	@echo "  make run-interactive # Interactive menu to select searches (recommended)"
+	@echo "  make run-all         # Run all searches from urls.json"
+	@echo "  make run             # Run scraper with AI ratings (single URL)"
+	@echo "  make run-fast        # Run scraper without AI ratings (single URL)"
 	@echo ""
 	@echo "Maintenance:"
 	@echo "  make clean      # Clean Python cache files"
@@ -73,6 +75,14 @@ run: check-deps
 # Run scraper without perplexity rating (faster)
 run-fast: check-deps
 	scrapy crawl property_spider -a use_perplexity=false
+
+# Run interactive CLI to select searches
+run-interactive: check-deps
+	python run_scraper.py
+
+# Run all searches from urls.json without prompting
+run-all: check-deps
+	python run_scraper.py --all
 
 # Test geocoding functionality
 test-geocoding: check-deps

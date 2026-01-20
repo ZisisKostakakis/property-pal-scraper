@@ -1,0 +1,12 @@
+{
+  "searches": [
+    {
+      "name": "Belfast 2-6 bed £100k-£140k",
+      "url": "https://www.propertypal.com/property-for-sale/belfast/bedrooms-2-6/price-100000-140000/sort-dateHigh"
+    },
+    {
+      "name": "BT1 2-6 bed £100k-£140k",
+      "url": "https://www.propertypal.com/search?expand=1.0&runit=m&sort=dateHigh&sta=forSale&st=sale&pt=residential&min=100000&max=140000&currency=GBP&minbeds=2&maxbeds=6&term=BT1"
+    }
+  ]
+}

@@ -50,24 +50,94 @@ pip install -r requirements.txt
 After running `./setup.sh`, you can immediately start scraping:
 
 ```bash
-# Run with AI property ratings (recommended)
+# Interactive menu to select searches (recommended)
+make run-interactive
+
+# Run all searches from urls.json
+make run-all
+
+# Single URL with AI property ratings
 make run
 
-# Run without AI ratings (faster)
+# Single URL without AI ratings (faster)
 make run-fast
 ```
+
+### Interactive CLI
+
+The easiest way to run the scraper is with the interactive CLI:
+
+```bash
+make run-interactive
+```
+
+This will:
+1. Show a multi-select menu of all configured searches (from `urls.json`)
+2. Let you select one or more searches to run (use space to select, enter to confirm)
+3. Ask if you want to enable AI ratings
+4. Run each selected search sequentially
+
+Example:
+```
+PropertyPal Scraper - Select Searches to Run
+=============================================
+? Select one or more searches (use space to select, enter to confirm):
+  ❯ ◉ Belfast 2-6 bed £100k-£140k
+    ◯ Derry 3-5 bed £150k-£200k
+
+? Enable AI ratings? (Y/n) n
+
+Running 1 search...
+
+[1/1] Running: Belfast 2-6 bed £100k-£140k
+URL: https://www.propertypal.com/property-for-sale/belfast/...
+```
+
+### Managing Search URLs
+
+Search URLs are stored in `urls.json` at the root of the project:
+
+```json
+{
+  "searches": [
+    {
+      "name": "Belfast 2-6 bed £100k-£140k",
+      "url": "https://www.propertypal.com/property-for-sale/belfast/bedrooms-2-6/price-100000-140000/sort-dateHigh"
+    },
+    {
+      "name": "Derry 3-5 bed £150k-£200k",
+      "url": "https://www.propertypal.com/property-for-sale/derry/bedrooms-3-5/price-150000-200000/sort-dateHigh"
+    }
+  ]
+}
+```
+
+**URL Format:**
+```
+https://www.propertypal.com/property-for-sale/{location}/bedrooms-{min}-{max}/price-{min}-{max}/sort-{order}
+```
+
+**Examples:**
+- Location: `belfast`, `derry`, `lisburn`, `newry`
+- Bedrooms: `bedrooms-2-6` (2 to 6 bedrooms)
+- Price: `price-100000-140000` (£100k to £140k)
+- Sort: `sort-dateHigh` (newest first), `sort-priceAsc` (cheapest first)
+
+To add new searches, simply edit `urls.json` and add entries to the `searches` array.
 
 ### Makefile Commands
 
 ```bash
-make help           # Show all available commands
-make install        # Create venv and install dependencies
-make test-geocoding # Test geocoding functionality
-make run            # Run scraper with AI ratings
-make run-fast       # Run scraper without AI ratings (faster)
-make clean          # Clean Python cache files
-make clean-data     # Clean all scraped data
-make clean-all      # Clean everything
+make help            # Show all available commands
+make install         # Create venv and install dependencies
+make test-geocoding  # Test geocoding functionality
+make run-interactive # Interactive menu to select searches (recommended)
+make run-all         # Run all searches from urls.json
+make run             # Run scraper with AI ratings (single URL)
+make run-fast        # Run scraper without AI ratings (single URL)
+make clean           # Clean Python cache files
+make clean-data      # Clean all scraped data
+make clean-all       # Clean everything
 ```
 
 ### Manual Scrapy Commands
@@ -78,14 +148,17 @@ For advanced usage or custom parameters:
 # Activate virtual environment first
 source venv/bin/activate
 
-# Basic run with AI ratings
-scrapy crawl property_spider
+# Run with default URL and AI ratings
+scrapy crawl property_spider -a use_perplexity=true
+
+# Run with custom URL
+scrapy crawl property_spider -a url="https://www.propertypal.com/property-for-sale/derry/bedrooms-3-5/price-150000-200000/sort-dateHigh"
 
 # Run without AI ratings (faster)
-scrapy crawl property_spider -a use_perplexity=false
+scrapy crawl property_spider -a url="..." -a use_perplexity=false
 
 # With custom settings
-scrapy crawl property_spider -a use_perplexity=true -s DOWNLOAD_DELAY=2
+scrapy crawl property_spider -a url="..." -a use_perplexity=true -s DOWNLOAD_DELAY=2
 ```
 
 ### Output Files
