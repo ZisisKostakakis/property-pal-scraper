@@ -13,9 +13,16 @@ export interface Property {
   property_type?: string;
   energy_rating?: string;
   lease_years?: number;
+  bedrooms?: number;
+  bathrooms?: number;
+  size?: number;
   features?: string[];
   distance_from_center?: number;
-  distance_to_destination?: number;
+  distance_to_destination?: number | null;
+  lat?: number;
+  lng?: number;
+  receptions?: number;
+  rates?: string;
 }
 
 export interface PropertyWithPriority extends Property {
@@ -23,6 +30,7 @@ export interface PropertyWithPriority extends Property {
   price_factor?: number;
   monthly_factor?: number;
   rating_factor?: number;
+  location_score?: number;
 }
 
 export interface AlgorithmWeights {

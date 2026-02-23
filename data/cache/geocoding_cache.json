@@ -1,11 +1,4 @@
 {
-  "lanyon place station, east bridge street, belfast, uk": {
-    "coords": [
-      54.5956736,
-      -5.9179363
-    ],
-    "cached_at": "2026-01-19T16:29:03.403727"
-  },
   "109 my ladys road belfast, bt6 8fe": {
     "coords": [
       54.5883547,
@@ -34,13 +27,6 @@
     ],
     "cached_at": "2026-01-19T16:29:25.793351"
   },
-  "61 templemore street belfast, bt5 4sb": {
-    "coords": [
-      54.5952646,
-      -5.8974776
-    ],
-    "cached_at": "2026-01-19T16:29:27.150578"
-  },
   "25 eia street antrim road, belfast, bt14 6bt": {
     "coords": [
       54.6155577,
@@ -62,20 +48,6 @@
     ],
     "cached_at": "2026-01-19T16:29:35.082562"
   },
-  "7 glenfarne street belfast, bt13 1jx": {
-    "coords": [
-      54.6077161,
-      -5.9471408
-    ],
-    "cached_at": "2026-01-19T16:29:36.382029"
-  },
-  "13 willowholme street belfast, bt6 8nw": {
-    "coords": [
-      54.5857747,
-      -5.9004182
-    ],
-    "cached_at": "2026-01-19T16:29:38.849166"
-  },
   "183 york road belfast, bt15 3hb": {
     "coords": [
       54.6149738,
@@ -89,13 +61,6 @@
       -5.9311132
     ],
     "cached_at": "2026-01-19T16:29:42.867654"
-  },
-  "41 deacon street belfast, bt15 3eg": {
-    "coords": [
-      54.6169993,
-      -5.9269229
-    ],
-    "cached_at": "2026-01-19T16:29:44.508325"
   },
   "99 maryville street belfast, bt7 1ae": {
     "coords": [
@@ -122,13 +87,6 @@
     "coords": null,
     "cached_at": "2026-01-19T16:29:54.335563"
   },
-  "18 pim street belfast, bt15 2bn": {
-    "coords": [
-      54.6088763,
-      -5.9356438
-    ],
-    "cached_at": "2026-01-19T16:29:55.531201"
-  },
   "4 ardenvohr street woodstock, belfast, bt6 8na": {
     "coords": [
       54.59297775,
@@ -136,25 +94,679 @@
     ],
     "cached_at": "2026-01-19T16:29:57.969321"
   },
-  "1, 6, brookhill avenue belfast, bt14 6bs": {
+  "lanyon place station, east bridge street, belfast, uk": {
     "coords": [
-      54.615573499999996,
-      -5.951382799999996
+      54.595615,
+      -5.9163253
     ],
-    "cached_at": "2026-01-19T16:29:59.877215"
+    "cached_at": "2026-02-20T08:36:39.829417"
   },
-  "88 ravenhill avenue belfast, bt6 8lg": {
+  "6 midland terrace belfast, bt15 1fb": {
     "coords": [
-      54.5872857,
-      -5.9069683
+      54.6114856,
+      -5.9238226
     ],
-    "cached_at": "2026-01-19T16:30:01.691396"
+    "cached_at": "2026-02-20T08:39:07.867128"
+  },
+  "15 gilnahirk road belfast, bt5 7da": {
+    "coords": [
+      54.5856889,
+      -5.8444854
+    ],
+    "cached_at": "2026-02-20T08:39:09.107506"
+  },
+  "46 magdala street belfast, bt7 1pu": {
+    "coords": [
+      54.5857313,
+      -5.9287754
+    ],
+    "cached_at": "2026-02-20T08:39:10.322513"
+  },
+  "11 deacon street belfast, bt15 3eg": {
+    "coords": [
+      54.6169993,
+      -5.9269229
+    ],
+    "cached_at": "2026-02-20T08:39:17.767411"
+  },
+  "81 joanmount gardens belfast, bt14 6ny": {
+    "coords": [
+      54.6271404,
+      -5.9601014
+    ],
+    "cached_at": "2026-02-20T08:39:20.556040"
+  },
+  "4 beechmount avenue belfast, bt12 7na": {
+    "coords": [
+      54.5936651,
+      -5.9630032
+    ],
+    "cached_at": "2026-02-20T08:39:21.784662"
+  },
+  "140 west circular road belfast, bt13 3qj": {
+    "coords": [
+      54.6039154,
+      -5.9746564
+    ],
+    "cached_at": "2026-02-20T08:39:23.363829"
+  },
+  "53 bramcote street belfast, bt5 5jl": {
+    "coords": [
+      54.5924402,
+      -5.88584
+    ],
+    "cached_at": "2026-02-20T08:39:27.631754"
+  },
+  "12 meadowhill glen road, belfast, bt11 8qr": {
+    "coords": [
+      54.5934209,
+      -5.9841458
+    ],
+    "cached_at": "2026-02-20T08:39:29.259721"
+  },
+  "129 beersbridge road belfast, bt5 4rr": {
+    "coords": [
+      54.5946882,
+      -5.884224
+    ],
+    "cached_at": "2026-02-20T08:39:30.583820"
+  },
+  "27 lecale street belfast, bt12 6je": {
+    "coords": [
+      54.5871682,
+      -5.957193
+    ],
+    "cached_at": "2026-02-20T08:39:32.035326"
+  },
+  "22 iveagh parade falls road, belfast, bt12 6az": {
+    "coords": [
+      54.5915437,
+      -5.9617426
+    ],
+    "cached_at": "2026-02-20T08:39:33.440827"
+  },
+  "17 breda road belfast, bt8 7bu": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:39:36.100329"
+  },
+  "24 brookhill avenue belfast, bt14 6bs": {
+    "coords": [
+      54.6161093,
+      -5.9399343
+    ],
+    "cached_at": "2026-02-20T08:39:37.871937"
+  },
+  "83 melrose street lisburn road, belfast, bt9 7dp": {
+    "coords": [
+      54.5820202,
+      -5.9468931
+    ],
+    "cached_at": "2026-02-20T08:39:45.419761"
+  },
+  "25 bailey manor dundonald, belfast, bt16 2nz": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:39:46.977591"
+  },
+  "9 hornbeam walk dunmurry, belfast, bt17 9dg": {
+    "coords": [
+      54.5513986,
+      -6.0109725
+    ],
+    "cached_at": "2026-02-20T08:39:51.289838"
+  },
+  "47 harrogate street falls road, belfast, bt12 7at": {
+    "coords": [
+      54.5894936,
+      -5.9693216
+    ],
+    "cached_at": "2026-02-20T08:39:52.958455"
+  },
+  "32 woodcot avenue belfast, bt5 5ja": {
+    "coords": [
+      54.5920394,
+      -5.8869909
+    ],
+    "cached_at": "2026-02-20T08:39:57.316555"
+  },
+  "85 donegall pass belfast, bt7 1dr": {
+    "coords": [
+      54.5901701,
+      -5.9285557
+    ],
+    "cached_at": "2026-02-20T08:40:29.968871"
+  },
+  "131 the mount castlereagh street, belfast, bt5 4nd": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:40:41.617187"
+  },
+  "1b musgrave manor, 55 stockmans way belfast, bt9 7gg": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:40:42.393589"
+  },
+  "16 sandbrook park belfast, bt4 1nl": {
+    "coords": [
+      54.6047431,
+      -5.8814336
+    ],
+    "cached_at": "2026-02-20T08:40:58.253815"
+  },
+  "42 ardcarn drive belfast, bt5 7rs": {
+    "coords": [
+      54.5930122,
+      -5.8235996
+    ],
+    "cached_at": "2026-02-20T08:40:59.584573"
+  },
+  "11 beechmount street belfast, bt12 7nh": {
+    "coords": [
+      54.5940703,
+      -5.9647005
+    ],
+    "cached_at": "2026-02-20T08:41:00.739155"
+  },
+  "6 cromarty place belfast, bt16 2nq": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:41:08.644043"
+  },
+  "3 greenway cregagh road, belfast, bt6 0dt": {
+    "coords": [
+      54.5759618,
+      -5.8965963
+    ],
+    "cached_at": "2026-02-20T08:41:09.745516"
+  },
+  "149a mount merrion avenue belfast, bt6 0fn": {
+    "coords": [
+      54.5774753,
+      -5.9020148
+    ],
+    "cached_at": "2026-02-20T08:41:10.919645"
+  },
+  "21 hugo street falls road, belfast, bt12 6et": {
+    "coords": [
+      54.5877158,
+      -5.969976
+    ],
+    "cached_at": "2026-02-20T08:41:13.349123"
+  },
+  "apt 27, titanic walk newtownards road, belfast, bt4 1bt": {
+    "coords": [
+      54.6014001,
+      -5.9044758
+    ],
+    "cached_at": "2026-02-20T08:41:18.238427"
+  },
+  "22d riverview meadows belfast, bt11 9rb": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:41:29.730943"
+  },
+  "7 frank street belfast, bt5 4nw": {
+    "coords": [
+      54.5950453,
+      -5.9022951
+    ],
+    "cached_at": "2026-02-20T08:41:30.716817"
+  },
+  "1 rodney drive donegall road, belfast, bt12 6dz": {
+    "coords": [
+      54.5894024,
+      -5.9687219
+    ],
+    "cached_at": "2026-02-20T08:41:32.290879"
+  },
+  "18 york parade belfast, bt15 3qz": {
+    "coords": [
+      54.6262463,
+      -5.9225402
+    ],
+    "cached_at": "2026-02-20T08:41:43.554827"
+  },
+  "6 ballygomartin road belfast, bt13 3ld": {
+    "coords": [
+      54.6097427,
+      -5.9706719
+    ],
+    "cached_at": "2026-02-20T08:41:44.846510"
+  },
+  "32 isoline street castlereagh, belfast, bt5 5gf": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:41:47.327288"
+  },
+  "27 glenarm square belfast, bt10 0fd": {
+    "coords": [
+      54.5557908,
+      -5.9743751
+    ],
+    "cached_at": "2026-02-20T08:41:53.658788"
+  },
+  "12 kilburn street belfast south, belfast, bt12 6js": {
+    "coords": [
+      54.587458,
+      -5.9545037
+    ],
+    "cached_at": "2026-02-20T08:42:05.261392"
+  },
+  "(lot 2) 8 salisbury court belfast, bt7 1dd": {
+    "coords": [
+      54.594804,
+      -5.9294686
+    ],
+    "cached_at": "2026-02-20T08:42:06.759914"
+  },
+  "82 iris drive belfast, bt12 7bl": {
+    "coords": [
+      54.5965999,
+      -5.9610163
+    ],
+    "cached_at": "2026-02-20T08:42:08.438496"
+  },
+  "182 parkgate avenue belfast, bt4 1jd": {
+    "coords": [
+      54.601023,
+      -5.8841158
+    ],
+    "cached_at": "2026-02-20T08:42:12.491628"
+  },
+  "49 kansas avenue flats antrim road, belfast, bt15 5ay": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:42:15.037493"
+  },
+  "24b fraser pass belfast, bt4 1bp": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:42:15.434653"
+  },
+  "86 knocknagoney park belfast, bt4 2pu": {
+    "coords": [
+      54.618214,
+      -5.8582652
+    ],
+    "cached_at": "2026-02-20T08:42:16.398614"
+  },
+  "apt 8, 674 shore road horizon buildings, belfast, bt15 4hh": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:42:20.131322"
+  },
+  "10 river court dunmurry, belfast, bt17 9dy": {
+    "coords": [
+      54.5523766,
+      -6.0153794
+    ],
+    "cached_at": "2026-02-20T08:42:21.006458"
+  },
+  "28 queensfort court saintfield road, carryduff, belfast, bt8 8nf": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:42:22.394377"
+  },
+  "67 upper malvern road belfast, bt8 6xn": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:42:29.469030"
+  },
+  "86 leeson street belfast, bt12 4lf": {
+    "coords": [
+      54.5968545,
+      -5.9506139
+    ],
+    "cached_at": "2026-02-20T08:42:30.413281"
+  },
+  "27 rockville street belfast, bt12 7pb": {
+    "coords": [
+      54.5899848,
+      -5.9700554
+    ],
+    "cached_at": "2026-02-20T08:42:31.884697"
+  },
+  "53 london road ravenhill, belfast, bt6 8ez": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:42:33.381769"
+  },
+  "31 glen crescent belfast, bt11 8fb": {
+    "coords": [
+      54.5834771,
+      -5.9799992
+    ],
+    "cached_at": "2026-02-20T08:42:47.181522"
+  },
+  "18 old brewery lane glen road, belfast, bt11 8qy": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:42:49.182721"
+  },
+  "11 iveagh drive falls road, belfast, bt12 6ay": {
+    "coords": [
+      54.5911198,
+      -5.962178
+    ],
+    "cached_at": "2026-02-20T08:42:50.085731"
+  },
+  "9 woodvale gardens belfast, bt13 3ll": {
+    "coords": [
+      54.612122,
+      -5.9653898
+    ],
+    "cached_at": "2026-02-20T08:42:51.450402"
+  },
+  "96 upper dunmurry lane belfast, bt17 0ps": {
+    "coords": [
+      54.5526481,
+      -6.0040716
+    ],
+    "cached_at": "2026-02-20T08:42:52.694459"
+  },
+  "61 templemore street belfast, bt5 4sb": {
+    "coords": [
+      54.5952646,
+      -5.8974776
+    ],
+    "cached_at": "2026-02-20T08:43:03.996318"
+  },
+  "7 glenfarne street belfast, bt13 1jx": {
+    "coords": [
+      54.6077161,
+      -5.9471408
+    ],
+    "cached_at": "2026-02-20T08:43:05.244845"
+  },
+  "26 clondara parade falls road, belfast, bt12 6es": {
+    "coords": [
+      54.587397,
+      -5.9695349
+    ],
+    "cached_at": "2026-02-20T08:43:12.362104"
   },
   "47 willowfield street woodstock, belfast, bt6 9au": {
     "coords": [
       54.5912245,
       -5.9006242
     ],
-    "cached_at": "2026-01-19T16:30:03.174304"
+    "cached_at": "2026-02-20T08:43:14.242098"
+  },
+  "(lot 3) 52 beechmount parade belfast, bt12 7lw": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:43:16.014431"
+  },
+  "5 beech grove dunmurry, belfast, bt17 9pu": {
+    "coords": [
+      54.5437872,
+      -6.0128432
+    ],
+    "cached_at": "2026-02-20T08:43:16.782303"
+  },
+  "1 wynford street belfast, bt5 5dd": {
+    "coords": [
+      54.5950653,
+      -5.8847409
+    ],
+    "cached_at": "2026-02-20T08:43:20.975466"
+  },
+  "49 grillagh way belfast, bt6 0es": {
+    "coords": [
+      54.5727909,
+      -5.8996932
+    ],
+    "cached_at": "2026-02-20T08:43:22.241321"
+  },
+  "(lot 5) 328 holywood road belfast, bt4 1sg": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:43:23.680946"
+  },
+  "37a craignish crescent dundonald, belfast, bt16 2np": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:43:24.531474"
+  },
+  "apartment 10 9 brown square belfast, bt13 2bw": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:43:40.844244"
+  },
+  "94 dunraven avenue belfast, bt5 5js": {
+    "coords": [
+      54.59121,
+      -5.8844646
+    ],
+    "cached_at": "2026-02-20T08:43:41.058852"
+  },
+  "28 charleville avenue belfast, bt9 7hg": {
+    "coords": [
+      54.5747678,
+      -5.9572354
+    ],
+    "cached_at": "2026-02-20T08:43:42.305745"
+  },
+  "apt 12, queensfort court saintfield road, carryduff, belfast, bt8 8nf": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:43:50.408016"
+  },
+  "33 glenwood park dunmurry, belfast, bt17 9dt": {
+    "coords": [
+      54.537978,
+      -6.0168808
+    ],
+    "cached_at": "2026-02-20T08:43:51.368527"
+  },
+  "20 harrogate street belfast, bt12 7at": {
+    "coords": [
+      54.5963555,
+      -5.9592327
+    ],
+    "cached_at": "2026-02-20T08:43:52.846714"
+  },
+  "2a rockdale street belfast, bt12 7pa": {
+    "coords": [
+      54.590301,
+      -5.9697602
+    ],
+    "cached_at": "2026-02-20T08:43:54.079223"
+  },
+  "(lot 14) 38 mayo street belfast, bt13 3ay": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:43:58.567425"
+  },
+  "59 whiterock crescent belfast, bt12 7pn": {
+    "coords": [
+      54.5920969,
+      -5.9741741
+    ],
+    "cached_at": "2026-02-20T08:43:58.868831"
+  },
+  "11 carrington street ravenhill road, belfast, bt6 8gf": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:44:15.830955"
+  },
+  "29 deerpark drive belfast, bt14 7qd": {
+    "coords": [
+      54.6227062,
+      -5.9617277
+    ],
+    "cached_at": "2026-02-20T08:44:16.357772"
+  },
+  "48 york park belfast, bt15 3qu": {
+    "coords": [
+      54.6264786,
+      -5.921506
+    ],
+    "cached_at": "2026-02-20T08:44:17.795122"
+  },
+  "1, 6, brookhill avenue belfast, bt14 6bs": {
+    "coords": [
+      54.6161093,
+      -5.9399343
+    ],
+    "cached_at": "2026-02-20T08:44:19.318484"
+  },
+  "28 connsbrook park belfast, bt4 1nf": {
+    "coords": [
+      54.6056578,
+      -5.8806566
+    ],
+    "cached_at": "2026-02-20T08:44:20.595075"
+  },
+  "88 ravenhill avenue belfast, bt6 8lg": {
+    "coords": [
+      54.5872857,
+      -5.9069683
+    ],
+    "cached_at": "2026-02-20T08:44:27.864261"
+  },
+  "45 willowfield drive woodstock, belfast, bt6 8hn": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:44:29.278796"
+  },
+  "14 foxglove street belfast, bt5 4sq": {
+    "coords": [
+      54.5919782,
+      -5.8936947
+    ],
+    "cached_at": "2026-02-20T08:44:30.332117"
+  },
+  "28 vandyck gardens belfast, newtownabbey, bt36 7hq": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:44:31.714856"
+  },
+  "54 boyd street belfast, bt13 2gu": {
+    "coords": [
+      54.6022422,
+      -5.9359118
+    ],
+    "cached_at": "2026-02-20T08:44:35.016996"
+  },
+  "12 ardcaoin walk poleglass, belfast, bt17 0ux": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:44:36.455042"
+  },
+  "12 albany place belfast, bt13 1ef": {
+    "coords": [
+      54.6055876,
+      -5.9478735
+    ],
+    "cached_at": "2026-02-20T08:44:37.421345"
+  },
+  "46 silverstream gardens belfast, bt14 8gs": {
+    "coords": [
+      54.626757,
+      -5.9694441
+    ],
+    "cached_at": "2026-02-20T08:44:38.824019"
+  },
+  "183 york park belfast, bt15 3hb": {
+    "coords": [
+      54.6264786,
+      -5.921506
+    ],
+    "cached_at": "2026-02-20T08:44:40.462370"
+  },
+  "11 pomona avenue belfast, bt4 3al": {
+    "coords": [
+      54.5989205,
+      -5.8826858
+    ],
+    "cached_at": "2026-02-20T08:44:41.883084"
+  },
+  "42 woodvale gardens belfast, bt13 3ll": {
+    "coords": [
+      54.612122,
+      -5.9653898
+    ],
+    "cached_at": "2026-02-20T08:44:43.201879"
+  },
+  "41 deacon street belfast, bt15 3eg": {
+    "coords": [
+      54.6169993,
+      -5.9269229
+    ],
+    "cached_at": "2026-02-20T08:44:50.846970"
+  },
+  "9 twaddell avenue belfast, bt13 3le": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:44:52.193508"
+  },
+  "57 glenbank place belfast, bt14 8al": {
+    "coords": [
+      54.6224937,
+      -5.9745694
+    ],
+    "cached_at": "2026-02-20T08:44:53.063958"
+  },
+  "18 pim street belfast, bt15 2bn": {
+    "coords": [
+      54.6088763,
+      -5.9356438
+    ],
+    "cached_at": "2026-02-20T08:44:54.323326"
+  },
+  "588 shore road belfast, bt15 4he": {
+    "coords": [
+      54.636711,
+      -5.9236555
+    ],
+    "cached_at": "2026-02-20T08:45:16.202179"
+  },
+  "43 joanmount park belfast, bt14 6pf": {
+    "coords": [
+      54.627325,
+      -5.9610771
+    ],
+    "cached_at": "2026-02-20T08:45:17.897224"
+  },
+  "37 estoril park belfast, bt14 7ng": {
+    "coords": [
+      54.6156078,
+      -5.9638405
+    ],
+    "cached_at": "2026-02-20T08:45:19.279002"
+  },
+  "1 eccles street belfast, bt13 3gs": {
+    "coords": [
+      54.6065754,
+      -5.9555575
+    ],
+    "cached_at": "2026-02-20T08:45:45.805042"
+  },
+  "13 willowholme street belfast, bt6 8nw": {
+    "coords": [
+      54.5857747,
+      -5.9004182
+    ],
+    "cached_at": "2026-02-20T08:45:47.701827"
+  },
+  "44 oakman street falls road, belfast, bt12 7bp": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:45:49.465809"
+  },
+  "26 greenville street belfast, bt5 5ag": {
+    "coords": [
+      54.5939071,
+      -5.8881893
+    ],
+    "cached_at": "2026-02-20T08:45:50.445224"
+  },
+  "77 palestine street off agincourt avenue, holylands, belfast, bt7 1ql": {
+    "coords": null,
+    "cached_at": "2026-02-20T08:45:52.813016"
+  },
+  "48 jerusalem street belfast, bt7 1qn": {
+    "coords": [
+      54.5834418,
+      -5.9259406
+    ],
+    "cached_at": "2026-02-20T08:45:53.100185"
+  },
+  "37 forest street belfast, bt12 7bg": {
+    "coords": [
+      54.5981188,
+      -5.9622084
+    ],
+    "cached_at": "2026-02-20T08:45:54.606113"
+  },
+  "204f upper lisburn road belfast, bt10 0la": {
+    "coords": [
+      54.5556955,
+      -5.9926609
+    ],
+    "cached_at": "2026-02-20T08:45:56.374707"
+  },
+  "15 york crescent shore road, belfast, bt15 3ra": {
+    "coords": [
+      54.6394244,
+      -5.9233698
+    ],
+    "cached_at": "2026-02-20T08:45:58.046627"
   }
 }

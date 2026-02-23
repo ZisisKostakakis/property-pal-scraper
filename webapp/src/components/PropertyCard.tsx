@@ -1,93 +1,96 @@
 'use client';
 
 import { PropertyWithPriority } from '@/types/property';
-import {
-  formatPrice,
-  formatMonthly,
-  getRatingColor,
-  getRatingBgColor,
-  getPriorityBadgeColor,
-} from '@/lib/utils';
+import { formatPrice, formatMonthly, formatDistance, getDistanceColor } from '@/lib/formatters';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Bed, Bath, Ruler, Flame, Zap, MapPin, Star } from 'lucide-react';
 
 interface PropertyCardProps {
   property: PropertyWithPriority;
+  rank: number;
+  onClick?: () => void;
 }
 
-export default function PropertyCard({ property }: PropertyCardProps) {
+function scoreBadgeVariant(score: number): 'default' | 'secondary' | 'destructive' {
+  if (score >= 60) return 'default';
+  if (score >= 40) return 'secondary';
+  return 'destructive';
+}
+
+export default function PropertyCard({ property, rank, onClick }: PropertyCardProps) {
+  const score = isNaN(property.priority_score) ? null : property.priority_score;
+  const distColor = getDistanceColor(property.distance_to_destination);
+
   return (
-    <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200 dark:border-gray-700 p-6">
-      {/* Priority Badge */}
-      <div className="absolute top-4 right-4">
-        <span
-          className={`px-3 py-1 rounded-full text-sm font-semibold ${getPriorityBadgeColor(
-            property.priority_score
-          )}`}
-          title={property.price_factor !== undefined && property.monthly_factor !== undefined && property.rating_factor !== undefined
-            ? `Price: ${property.price_factor}, Monthly: ${property.monthly_factor}, Rating: ${property.rating_factor}`
-            : undefined}
-        >
-          {isNaN(property.priority_score) ? 'N/A' : property.priority_score}
-        </span>
-      </div>
+    <Card
+      className="cursor-pointer hover:shadow-md transition-shadow"
+      onClick={onClick}
+    >
+      <CardContent className="p-4 flex flex-col gap-2.5">
+        {/* Header */}
+        <div className="flex items-start justify-between">
+          <span className="text-xs text-muted-foreground font-medium">#{rank}</span>
+          <div className="flex items-center gap-1.5">
+            {property.tenure && (
+              <Badge variant="outline" className="text-xs">{property.tenure}</Badge>
+            )}
+            {score != null && (
+              <Badge variant={scoreBadgeVariant(score)} className="text-xs font-bold">
+                {score}
+              </Badge>
+            )}
+          </div>
+        </div>
 
-      {/* Price */}
-      <div className="mb-2">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-          {formatPrice(property.price)}
-        </h2>
-      </div>
+        {/* Price + location */}
+        <div>
+          <p className="text-xl font-bold">{formatPrice(property.price)}</p>
+          <p className="text-sm text-muted-foreground leading-snug mt-0.5">{property.location}</p>
+        </div>
 
-      {/* Monthly Payment */}
-      <div className="mb-3">
-        <p className="text-lg text-gray-600 dark:text-gray-300">{formatMonthly(property.monthly_payment)}</p>
-      </div>
+        {/* Attributes */}
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
+          {property.bedrooms != null && (
+            <span className="flex items-center gap-1"><Bed className="h-3.5 w-3.5" />{property.bedrooms}</span>
+          )}
+          {property.bathrooms != null && (
+            <span className="flex items-center gap-1"><Bath className="h-3.5 w-3.5" />{property.bathrooms}</span>
+          )}
+          {property.size != null && (
+            <span className="flex items-center gap-1"><Ruler className="h-3.5 w-3.5" />{property.size}m²</span>
+          )}
+        </div>
 
-      {/* Rating */}
-      <div className="mb-4">
-        <span
-          className={`inline-block px-3 py-1 rounded-md text-sm font-medium ${property.perplexity_rating ? getRatingBgColor(
-            property.perplexity_rating
-          ) : 'bg-gray-50'} ${property.perplexity_rating ? getRatingColor(property.perplexity_rating) : 'text-gray-500'}`}
-        >
-          ⭐ {property.perplexity_rating ?? 'N/A'}/10
-        </span>
-      </div>
+        {/* Details */}
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm">
+          {property.heating && (
+            <span className="flex items-center gap-1 text-muted-foreground">
+              <Flame className="h-3.5 w-3.5" />{property.heating}
+            </span>
+          )}
+          {property.energy_rating && (
+            <span className="flex items-center gap-1 text-muted-foreground">
+              <Zap className="h-3.5 w-3.5" />EPC: {property.energy_rating}
+            </span>
+          )}
+          <span className={`flex items-center gap-1 font-medium ${distColor}`}>
+            <MapPin className="h-3.5 w-3.5" />{formatDistance(property.distance_to_destination)}
+          </span>
+        </div>
 
-      {/* Location */}
-      <div className="mb-4">
-        <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-          {property.location}
-        </p>
-      </div>
-
-      {/* Analysis Full Text */}
-      <div className="mb-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-wrap">
-          {property.analysis}
-        </p>
-      </div>
-
-      {/* All JSON Data */}
-      <details className="mb-4">
-        <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-          Show all data
-        </summary>
-        <pre className="mt-2 p-3 bg-gray-50 dark:bg-gray-900 rounded text-xs overflow-auto max-h-96 text-gray-800 dark:text-gray-200">
-          {JSON.stringify(property, null, 2)}
-        </pre>
-      </details>
-
-      {/* View Details Link */}
-      <div>
-        <a
-          href={property.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-medium py-2 px-4 rounded transition-colors duration-200"
-        >
-          View on PropertyPal
-        </a>
-      </div>
-    </div>
+        {/* Footer */}
+        <div className="flex items-center justify-between text-sm border-t pt-2.5 mt-auto">
+          <span className="text-muted-foreground">
+            {formatMonthly(property.calculated_monthly_payment)} est.
+          </span>
+          {property.perplexity_rating != null && (
+            <span className="flex items-center gap-1 text-muted-foreground">
+              <Star className="h-3.5 w-3.5" />{property.perplexity_rating}/10
+            </span>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
