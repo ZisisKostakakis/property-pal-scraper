@@ -8,6 +8,23 @@ from propertypal_scraper.geocoding import GeocodingService
 from propertypal_scraper import settings
 
 
+class DuplicateFilterPipeline:
+    """Drop items whose URL has already been seen in this spider run"""
+
+    def open_spider(self, spider):
+        self.seen = set()
+
+    def process_item(self, item, spider):
+        from itemadapter import ItemAdapter
+        url = ItemAdapter(item).get('url')
+        if url in self.seen:
+            spider.logger.debug(f"Duplicate URL dropped: {url}")
+            from scrapy.exceptions import DropItem
+            raise DropItem(f"Duplicate URL: {url}")
+        self.seen.add(url)
+        return item
+
+
 class ValidationPipeline:
     """Validate required fields and log warnings for incomplete items"""
 
