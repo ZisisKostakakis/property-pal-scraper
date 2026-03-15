@@ -1,4 +1,5 @@
 import os
+import time
 import requests
 from typing import Dict, Any
 
@@ -100,15 +101,32 @@ Outlook: [brief outlook]"""
             "max_tokens": 1000
         }
 
-        try:
-            response = requests.post(
-                self.base_url,
-                headers=self.headers,
-                json=payload,
-                timeout=30
-            )
-            response.raise_for_status()
+        last_exc: Exception = Exception("no attempts made")
+        for attempt in range(3):
+            delay = 2 ** attempt  # 1s, 2s, 4s
+            try:
+                response = requests.post(
+                    self.base_url,
+                    headers=self.headers,
+                    json=payload,
+                    timeout=30
+                )
+                response.raise_for_status()
+                break
+            except requests.exceptions.RequestException as e:
+                last_exc = e
+                if attempt < 2:
+                    time.sleep(delay)
+        else:
+            return {
+                'rating_score': None,
+                'rating_text': f"Error after 3 attempts: {str(last_exc)}",
+                'monthly_payment': self.calculate_monthly_payment(property_data.get('price', 0)),
+                'property_id': property_data.get('property_id'),
+                'url': property_data.get('url')
+            }
 
+        try:
             result = response.json()
             rating_text = result['choices'][0]['message']['content']
 
@@ -144,10 +162,10 @@ Outlook: [brief outlook]"""
                 'url': property_data.get('url')
             }
 
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
             return {
                 'rating_score': None,
-                'rating_text': f"Error: {str(e)}",
+                'rating_text': f"Error parsing response: {str(e)}",
                 'monthly_payment': self.calculate_monthly_payment(property_data.get('price', 0)),
                 'property_id': property_data.get('property_id'),
                 'url': property_data.get('url')
