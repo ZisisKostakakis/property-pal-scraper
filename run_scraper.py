@@ -26,8 +26,12 @@ def load_searches():
         sys.exit(1)
 
 
-def run_scrapy(url, use_perplexity):
-    """Run Scrapy spider with the given URL and perplexity setting."""
+def run_scrapy(url, use_perplexity, limit=None):
+    """Run Scrapy spider with the given URL and perplexity setting.
+
+    ``limit`` caps the number of scraped items per search (handy for dev runs).
+    It maps to Scrapy's built-in CLOSESPIDER_ITEMCOUNT setting.
+    """
     perplexity_arg = 'true' if use_perplexity else 'false'
 
     cmd = [
@@ -35,9 +39,37 @@ def run_scrapy(url, use_perplexity):
         '-a', f'url={url}',
         '-a', f'use_perplexity={perplexity_arg}'
     ]
+    if limit is not None:
+        cmd += ['-s', f'CLOSESPIDER_ITEMCOUNT={limit}']
 
     result = subprocess.run(cmd, cwd=Path(__file__).parent)
     return result.returncode == 0
+
+
+def parse_limit(argv):
+    """Pull --limit N out of argv. Returns int or None. Exits on bad input."""
+    for i, a in enumerate(argv):
+        if a == '--limit' and i + 1 < len(argv):
+            try:
+                n = int(argv[i + 1])
+            except ValueError:
+                print(f"Error: --limit expects an integer, got {argv[i + 1]!r}")
+                sys.exit(2)
+            if n < 1:
+                print("Error: --limit must be >= 1")
+                sys.exit(2)
+            return n
+        if a.startswith('--limit='):
+            try:
+                n = int(a.split('=', 1)[1])
+            except ValueError:
+                print(f"Error: --limit expects an integer, got {a!r}")
+                sys.exit(2)
+            if n < 1:
+                print("Error: --limit must be >= 1")
+                sys.exit(2)
+            return n
+    return None
 
 
 def main():
@@ -51,6 +83,10 @@ def main():
 
     print("\nPropertyPal Scraper - Select Searches to Run")
     print("=" * 45)
+
+    limit = parse_limit(sys.argv)
+    if limit is not None:
+        print(f"(Item cap per search: {limit})")
 
     # Check for --all flag
     if '--all' in sys.argv:
@@ -93,7 +129,7 @@ def main():
         print(f"URL: {search['url']}")
         print("-" * 60)
 
-        success = run_scrapy(search['url'], use_perplexity)
+        success = run_scrapy(search['url'], use_perplexity, limit=limit)
 
         if success:
             successful += 1
